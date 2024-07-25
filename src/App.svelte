@@ -1,6 +1,12 @@
 <script>
+  import { Router } from "svelte-routing";
+  import Header from "./components/Header.svelte";
+
+  export let url = "";
 </script>
 
-<main class="text-center p-4 bg-teal-600">
-
-</main>
+<Router {url}>
+  <div class="min-h-screen bg-gray-100">
+    <Header />
+  </div>
+</Router>
