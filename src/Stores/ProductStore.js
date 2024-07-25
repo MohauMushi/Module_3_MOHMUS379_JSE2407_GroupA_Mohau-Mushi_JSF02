@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 
 function createProductStore() {
-  const { subscribe, set, update } = writable({
+  const { subscribe, update } = writable({
     products: [],
     categories: [],
     loading: false,
