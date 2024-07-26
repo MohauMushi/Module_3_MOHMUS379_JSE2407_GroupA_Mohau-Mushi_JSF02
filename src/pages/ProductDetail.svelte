@@ -37,7 +37,7 @@
             <img
               src={product.image}
               alt={product.title}
-              class="max-w-full h-auto max-h-96 object-contain"
+              class="max-w-full h-64 max-h-96 object-contain"
             />
           </div>
           <div class="md:w-1/2 p-4">

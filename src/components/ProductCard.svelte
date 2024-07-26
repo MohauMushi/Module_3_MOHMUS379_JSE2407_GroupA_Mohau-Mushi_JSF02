@@ -13,7 +13,7 @@
     <img
       src={product.image}
       alt={product.title}
-      class="w-full h-48 object-contain"
+      class="w-full mt-4 h-44 object-contain"
     />
     <div class="p-4">
       <h2 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
