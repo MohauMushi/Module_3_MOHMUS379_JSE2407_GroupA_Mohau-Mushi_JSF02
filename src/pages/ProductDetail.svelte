@@ -85,7 +85,7 @@
         <p
           class="text-center text-red-500 font-extrabold p-4 flex items-center justify-center"
         >
-          Product not found.
+        Oops! It looks like the product you're looking for isn't available..
         </p>
       {/if}
     </div>
