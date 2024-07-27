@@ -6,16 +6,22 @@
 
   let products = [];
   let loading = true;
+  let error = null;
 
   onMount(async () => {
-    await fetchProducts();
-
-    setTimeout(() => {
+    try {
+      await fetchProducts();
+      setTimeout(() => {
+        loading = false;
+      }, 1200);
+    } catch (e) {
+      error = "An error occurred while fetching products.";
       loading = false;
-    }, 1200);
+    }
   });
 
   $: products = $productsStore.products;
+  $: noProducts = !loading && products.length === 0;
 </script>
 
 <div class="space-y-8">
@@ -25,6 +31,18 @@
     >
       <LoadingSpinner count={8} />
     </div>
+  {:else if error}
+    <p
+      class="text-center text-red-500 font-extrabold p-4 flex items-center justify-center"
+    >
+      {error}
+    </p>
+  {:else if noProducts}
+    <p
+      class="text-center text-red-500 font-extrabold p-4 flex items-center justify-center"
+    >
+      No products found.
+    </p>
   {:else}
     <ProductGrid {products} />
   {/if}
