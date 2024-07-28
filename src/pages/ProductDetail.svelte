@@ -2,15 +2,20 @@
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
   import { fetchProductById } from "../stores/productStore";
+  import { filterSortStore } from "../stores/filterSortStore";
   import ProductDetailSkeleton from "../components/ProductDetailSkeleton.svelte";
 
   export let id;
   let product = null;
   let loading = true;
+  let filterSortSettings;
 
   onMount(async () => {
     product = await fetchProductById(id);
     loading = false;
+    filterSortStore.subscribe((value) => {
+      filterSortSettings = value;
+    });
   });
 
   function addToCart() {
