@@ -6,6 +6,8 @@ function createProductStore() {
     categories: [],
     loading: false,
     error: null,
+    selectedCategory: "",
+    sortOrder: "",
   });
 
   return {
@@ -46,10 +48,31 @@ function createProductStore() {
         update((store) => ({ ...store, loading: false }));
       }
     },
+    setSelectedCategory: (category) => {
+      update((store) => ({ ...store, selectedCategory: category }));
+    },
+    setSortOrder: (order) => {
+      update((store) => ({ ...store, sortOrder: order }));
+    },
+    getFilteredAndSortedProducts: (store) => {
+      let filteredProducts = store.selectedCategory
+        ? store.products.filter(
+            (product) => product.category === store.selectedCategory,
+          )
+        : store.products;
+
+      if (store.sortOrder === "asc") {
+        filteredProducts.sort((a, b) => a.price - b.price);
+      } else if (store.sortOrder === "desc") {
+        filteredProducts.sort((a, b) => b.price - a.price);
+      }
+
+      return filteredProducts;
+    },
   };
 }
 
 export const productsStore = createProductStore();
 
-export const { fetchProducts, fetchCategories, fetchProductById } =
+export const { fetchProducts, fetchCategories, fetchProductById, setSelectedCategory, setSortOrder, getFilteredAndSortedProducts, } =
   productsStore;
