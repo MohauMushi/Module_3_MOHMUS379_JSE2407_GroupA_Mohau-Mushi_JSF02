@@ -5,6 +5,7 @@
     fetchProducts,
     fetchCategories,
   } from "../stores/productStore";
+  import { filterSortStore } from "../stores/filterSortStore";
   import ProductGrid from "../components/ProductGrid.svelte";
   import LoadingSpinner from "../components/LoadingSpinner.svelte";
   import Filter from "../components/Filter.svelte";
@@ -21,6 +22,10 @@
     try {
       await fetchProducts();
       await fetchCategories();
+      filterSortStore.subscribe((value) => {
+        selectedCategory = value.selectedCategory;
+        sortOrder = value.sortOrder;
+      });
       setTimeout(() => {
         loading = false;
       }, 1200);
@@ -49,10 +54,12 @@
 
   function handleFilterChange(event) {
     selectedCategory = event.detail.category;
+    filterSortStore.update((value) => ({ ...value, selectedCategory }));
   }
 
   function handleSortChange(event) {
     sortOrder = event.detail.sortOrder;
+    filterSortStore.update((value) => ({ ...value, sortOrder }));
   }
 </script>
 
