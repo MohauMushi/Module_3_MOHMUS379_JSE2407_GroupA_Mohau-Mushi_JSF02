@@ -10,6 +10,7 @@
   import LoadingSpinner from "../components/LoadingSpinner.svelte";
   import Filter from "../components/Filter.svelte";
   import Sort from "../components/Sort.svelte";
+  import Search from "../components/Search.svelte";
 
   let products = [];
   let loading = true;
@@ -17,6 +18,7 @@
   let categories = [];
   let selectedCategory = "";
   let sortOrder = "";
+  let searchTerm = "";
 
   onMount(async () => {
     try {
@@ -40,11 +42,14 @@
     categories = $productsStore.categories;
   }
 
-  $: noProducts = !loading && products.length === 0;
+  $: noProducts = !loading && filteredAndSortedProducts.length === 0;
 
   $: filteredAndSortedProducts = products
     .filter((product) =>
       selectedCategory ? product.category === selectedCategory : true,
+    )
+    .filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase()),
     )
     .sort((a, b) => {
       if (sortOrder === "asc") return a.price - b.price;
@@ -61,6 +66,10 @@
     sortOrder = event.detail.sortOrder;
     filterSortStore.update((value) => ({ ...value, sortOrder }));
   }
+
+  function handleSearch(event) {
+    searchTerm = event.detail.searchTerm;
+  }
 </script>
 
 <div class="space-y-8">
@@ -76,14 +85,8 @@
     >
       {error}
     </p>
-  {:else if noProducts}
-    <p
-      class="text-center text-red-500 font-extrabold p-4 flex items-center justify-center"
-    >
-      No products found.
-    </p>
   {:else}
-    <div class=" mb-6 flex flex-wrap items-center justify-between">
+    <div class="mb-6 flex flex-wrap items-center justify-between">
       <div class="w-full md:w-auto mb-4 md:mb-0">
         <Filter
           {categories}
@@ -91,11 +94,22 @@
           on:filterChange={handleFilterChange}
         />
       </div>
+      <div class="w-full md:w-auto mb-4 md:mb-0">
+        <Search on:input={handleSearch} />
+      </div>
       <div class="w-full md:w-auto">
         <Sort {sortOrder} on:sortChange={handleSortChange} />
       </div>
     </div>
 
-    <ProductGrid products={filteredAndSortedProducts} />
+    {#if noProducts}
+      <p
+        class="text-center text-red-500 font-extrabold p-4 flex items-center justify-center"
+      >
+        No products found.
+      </p>
+    {:else}
+      <ProductGrid products={filteredAndSortedProducts} />
+    {/if}
   {/if}
 </div>
