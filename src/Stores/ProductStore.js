@@ -26,7 +26,9 @@ function createProductStore() {
     fetchCategories: async () => {
       update((store) => ({ ...store, loading: true, error: null }));
       try {
-        const response = await fetch(`https://fakestoreapi.com/products/categories`);
+        const response = await fetch(
+          `https://fakestoreapi.com/products/categories`,
+        );
         if (!response.ok) throw new Error("Failed to fetch categories");
         const categories = await response.json();
         update((store) => ({ ...store, categories, loading: false }));
@@ -74,5 +76,11 @@ function createProductStore() {
 
 export const productsStore = createProductStore();
 
-export const { fetchProducts, fetchCategories, fetchProductById, setSelectedCategory, setSortOrder, getFilteredAndSortedProducts, } =
-  productsStore;
+export const {
+  fetchProducts,
+  fetchCategories,
+  fetchProductById,
+  setSelectedCategory,
+  setSortOrder,
+  getFilteredAndSortedProducts,
+} = productsStore;
