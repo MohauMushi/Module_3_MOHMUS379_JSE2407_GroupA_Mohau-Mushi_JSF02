@@ -1,9 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
-  import { fetchProductById } from "../../src/stores/ProductsStore.js";
-  import { filterSortStore } from "../../src/stores/filterSortStore.js";
-  import ProductDetailSkeleton from "../../src/components/ProductDetailSkeleton.svelte";
+  import { fetchProductById } from "../store/ProductsStore.js";
+  import { filterSortStore } from "../store/filterSortStore.js";
+  import ProductDetailSkeleton from "../components/ProductDetailSkeleton.svelte";
 
   /**
    * The ID of the product to fetch.
