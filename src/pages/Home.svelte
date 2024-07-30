@@ -4,7 +4,7 @@
     productsStore,
     fetchProducts,
     fetchCategories,
-  } from "../stores/productStore";
+  } from "../stores/ProductsStore";
   import { filterSortStore } from "../stores/filterSortStore";
   import ProductGrid from "../components/ProductGrid.svelte";
   import LoadingSpinner from "../components/LoadingSpinner.svelte";
