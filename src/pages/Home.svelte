@@ -4,8 +4,8 @@
     productsStore,
     fetchProducts,
     fetchCategories,
-  } from "../../src/stores/ProductsStore";
-  import { filterSortStore } from "../../src/stores/filterSortStore";
+  } from "../../src/stores/ProductsStore.js";
+  import { filterSortStore } from "../../src/stores/filterSortStore.js";
   import ProductGrid from "../../src/components/ProductGrid.svelte";
   import LoadingSpinner from "../../src/components/LoadingSpinner.svelte";
   import Filter from "../../src/components/Filter.svelte";
