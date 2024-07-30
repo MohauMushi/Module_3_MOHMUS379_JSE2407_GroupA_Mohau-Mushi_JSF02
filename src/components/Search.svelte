@@ -1,9 +1,22 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
+  /**
+   * @type {string}
+   * @description The current value of the search input.
+   */
   let searchTerm = "";
+
+  /**
+   * @type {function}
+   * @description Svelte event dispatcher for custom events.
+   */
   const dispatch = createEventDispatcher();
 
+  /**
+   * Handles the input event of the search field.
+   * @param event - The input event object.
+   */
   function handleInput(event) {
     searchTerm = event.target.value;
     dispatch("input", { searchTerm });

@@ -5,11 +5,34 @@
   import { filterSortStore } from "../stores/filterSortStore";
   import ProductDetailSkeleton from "../components/ProductDetailSkeleton.svelte";
 
+  /**
+   * The ID of the product to fetch.
+   * @type {string}
+   */
   export let id;
+
+  /**
+   * The product details fetched from the store.
+   * @type {Object|null}
+   */
   let product = null;
+
+  /**
+   * Indicates whether the product details are still loading.
+   * @type {boolean}
+   */
   let loading = true;
+
+  /**
+   * The filter and sort settings from the store.
+   * @type {Object}
+   */
   let filterSortSettings;
 
+  /**
+   * Fetches the product details when the component is mounted.
+   * Subscribes to the filterSortStore to get the current filter and sort settings.
+   */
   onMount(async () => {
     product = await fetchProductById(id);
     loading = false;
@@ -18,6 +41,9 @@
     });
   });
 
+  /**
+   * Adds the current product to the cart.
+   */
   function addToCart() {
     //   console.log("Added to cart:", product.title);
   }
@@ -90,7 +116,7 @@
         <p
           class="text-center text-red-500 font-extrabold p-4 flex items-center justify-center"
         >
-        Oops! It looks like the product you're looking for isn't available..
+          Oops! It looks like the product you're looking for isn't available..
         </p>
       {/if}
     </div>

@@ -12,14 +12,25 @@
   import Sort from "../components/Sort.svelte";
   import Search from "../components/Search.svelte";
 
+  /** @type {Array} - Array to store product data */
   let products = [];
+  /** @type {boolean} - Flag to indicate if data is being loaded */
   let loading = true;
+  /** @type {string|null} - Stores any error message */
   let error = null;
+  /** @type {Array} - Array to store category data */
   let categories = [];
+  /** @type {string} - Currently selected category */
   let selectedCategory = "";
+  /** @type {string} - Current sort order */
   let sortOrder = "";
+  /** @type {string} - Current search term */
   let searchTerm = "";
 
+  /**
+   * @function
+   * @description Lifecycle function to fetch initial data on component mount
+   */
   onMount(async () => {
     try {
       await fetchProducts();
@@ -28,6 +39,7 @@
         selectedCategory = value.selectedCategory;
         sortOrder = value.sortOrder;
       });
+      // Simulate loading delay
       setTimeout(() => {
         loading = false;
       }, 1200);
@@ -37,13 +49,24 @@
     }
   });
 
+  /**
+   * @description Reactive statements to update local variables when store values change
+   */
   $: {
     products = $productsStore.products;
     categories = $productsStore.categories;
   }
 
+  /**
+   * @type {boolean}
+   * @description Reactive variable to check if no products are available after filtering
+   */
   $: noProducts = !loading && filteredAndSortedProducts.length === 0;
 
+  /**
+   * @type {Array}
+   * @description Reactive variable to filter and sort products based on user selections
+   */
   $: filteredAndSortedProducts = products
     .filter((product) =>
       selectedCategory ? product.category === selectedCategory : true,
@@ -57,21 +80,37 @@
       return 0;
     });
 
+  /**
+   * @function
+   * @param {CustomEvent} event - The custom event object
+   * @description Handles changes in the category filter
+   */
   function handleFilterChange(event) {
     selectedCategory = event.detail.category;
     filterSortStore.update((value) => ({ ...value, selectedCategory }));
   }
 
+  /**
+   * @function
+   * @param {CustomEvent} event - The custom event object
+   * @description Handles changes in the sort order
+   */
   function handleSortChange(event) {
     sortOrder = event.detail.sortOrder;
     filterSortStore.update((value) => ({ ...value, sortOrder }));
   }
 
+  /**
+   * @function
+   * @param {CustomEvent} event - The custom event object
+   * @description Handles changes in the search input
+   */
   function handleSearch(event) {
     searchTerm = event.detail.searchTerm;
   }
 </script>
 
+<!-- Component template -->
 <div class="space-y-8">
   {#if loading}
     <div
