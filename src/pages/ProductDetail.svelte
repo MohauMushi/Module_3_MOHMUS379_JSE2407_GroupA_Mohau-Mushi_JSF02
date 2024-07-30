@@ -1,9 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
-  import { fetchProductById } from "../stores/ProductsStore";
-  import { filterSortStore } from "../stores/filterSortStore";
-  import ProductDetailSkeleton from "../components/ProductDetailSkeleton.svelte";
+  import { fetchProductById } from "../../src/stores/ProductsStore";
+  import { filterSortStore } from "../../src/stores/filterSortStore";
+  import ProductDetailSkeleton from "../../src/components/ProductDetailSkeleton.svelte";
 
   /**
    * The ID of the product to fetch.
@@ -65,7 +65,9 @@
       {#if !loading && product}
         <div class="bg-white rounded-lg shadow-md p-6">
           <div class="flex flex-col md:flex-row">
-            <div class="md:w-1/2 flex items-center justify-center mb-4 md:mb-0">
+            <div
+              class="md:w-1/2 flex items-center justify-center mb-4 md:mb-0 m-"
+            >
               <img
                 src={product.image}
                 alt={product.title}

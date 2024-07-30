@@ -4,13 +4,13 @@
     productsStore,
     fetchProducts,
     fetchCategories,
-  } from "../stores/ProductsStore";
-  import { filterSortStore } from "../stores/filterSortStore";
-  import ProductGrid from "../components/ProductGrid.svelte";
-  import LoadingSpinner from "../components/LoadingSpinner.svelte";
-  import Filter from "../components/Filter.svelte";
-  import Sort from "../components/Sort.svelte";
-  import Search from "../components/Search.svelte";
+  } from "../../src/stores/ProductsStore";
+  import { filterSortStore } from "../../src/stores/filterSortStore";
+  import ProductGrid from "../../src/components/ProductGrid.svelte";
+  import LoadingSpinner from "../../src/components/LoadingSpinner.svelte";
+  import Filter from "../../src/components/Filter.svelte";
+  import Sort from "../../src/components/Sort.svelte";
+  import Search from "../../src/components/Search.svelte";
 
   /** @type {Array} - Array to store product data */
   let products = [];

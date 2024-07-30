@@ -1,6 +1,6 @@
 <script>
 import { createEventDispatcher } from 'svelte';
-import { filterSortStore } from "../stores/filterSortStore";
+import { filterSortStore } from "../../src/stores/filterSortStore";
 
 /**
  * The current sort order.
